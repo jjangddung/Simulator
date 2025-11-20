@@ -191,8 +191,8 @@
       </collision>
     </link>
     <joint name='support_to_leg_joint' type='fixed'>
-      <parent>link_0</parent>
-      <child>link_1</child>
+      <parent>sign_leg</parent>
+      <child>caro_support</child>
       <pose frame=''>0 0 0 0 -0 0</pose>
       <physics>
         <ode>

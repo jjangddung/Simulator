@@ -2,11 +2,12 @@
 <launch>
   <!-- TODO: This is used for the _REC variants, but I'm unsure how it's used. -->
   <arg name="gui" default="true" />
+  <arg name="world" default="$(find-pkg-share sim_pkg)/worlds/world_with_separators.world" />
 
   <include file="$(find-pkg-share gazebo_ros)/launch/gzserver.launch.py">
     <arg name="verbose" value="true" />
-    <arg name="world" value="$(find-pkg-share sim_pkg)/worlds/world_with_separators.world" />
-    <arg name="extra_gazebo_args" value="--server-plugin libgazebo_ros_init.so --server-plugin libgazebo_ros_factory.so" />
+    <arg name="world" value="$(var world)" />
+    <arg name="extra_gazebo_args" value="--server-plugin libgazebo_ros_init.so --server-plugin libgazebo_ros_factory.so --server-plugin libgazebo_ros_state.so" />
   </include>
 
   <include if="$(var gui)" file="$(find-pkg-share gazebo_ros)/launch/gzclient.launch.py">

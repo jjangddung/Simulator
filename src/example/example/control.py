@@ -72,7 +72,7 @@ class RemoteControlTransmitterProcess():
             The key pressed
         """                                     
         print(key)
-        if key.char in self.allKeys:
+        if hasattr(key, "char") and key.char in self.allKeys:
             keyMsg = 'p.' + str(key.char)
 
             self._send_command(keyMsg)
@@ -91,7 +91,7 @@ class RemoteControlTransmitterProcess():
             self.publisher.publish(String(data='{"action":"3","steerAngle":0.0}'))
             return False
 
-        if key.char in self.allKeys:
+        if hasattr(key, "char") and key.char in self.allKeys:
             keyMsg = 'r.'+str(key.char)
 
             self._send_command(keyMsg)

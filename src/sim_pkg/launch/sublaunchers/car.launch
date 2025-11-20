@@ -6,6 +6,6 @@
       name = "automobile"
       pkg = "gazebo_ros"
       exec = "spawn_entity.py"
-      args = "-file $(find-pkg-share models_pkg)/rcCar_assembly/model.sdf -entity automobile -x 0.82 -y -14.91 -z 0.032939 -Y 1.570796"/>
- 
+      args = "-file $(find-pkg-share models_pkg)/rcCar_assembly/model.sdf -entity automobile -x 11.775 -y 2.04 -z 0.032939 -Y 0.0"/>
+ <!-- -x 8.5 -y 2.0 -z 0.032939 -Y 0.0 -->
   </launch>

@@ -20,4 +20,7 @@
   <include file="$(find-pkg-share sim_pkg)/launch/sublaunchers/ramp.launch"/>
   <include file="$(find-pkg-share sim_pkg)/launch/sublaunchers/roadblock.launch"/>
   <include file="$(find-pkg-share sim_pkg)/launch/sublaunchers/traffic_lights.launch"/>
+  <include file="$(find-pkg-share sim_pkg)/launch/sublaunchers/wheel_imu_odom.launch"/>
+  <include file="$(find-pkg-share sim_pkg)/launch/sublaunchers/robot_localization.launch"/>
+  <include file="$(find-pkg-share sim_pkg)/launch/sublaunchers/set_initial_pose.launch"/>
 </launch>

@@ -10,6 +10,12 @@
 
   <exec_depend>ros2launch</exec_depend>
   <exec_depend>ros2run</exec_depend>
+  <exec_depend>robot_localization</exec_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>gazebo_msgs</exec_depend>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
   <export>

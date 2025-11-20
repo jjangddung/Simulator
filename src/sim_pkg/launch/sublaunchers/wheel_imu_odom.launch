@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <arg name="initial_x" default="11.775"/>
+  <arg name="initial_y" default="2.04"/>
+  <arg name="initial_yaw" default="0.0"/>
+
+  <node pkg="sim_pkg" exec="wheel_imu_odom.py" name="wheel_imu_odom" output="screen">
+    <param name="use_sim_time" value="true"/>
+    <param name="initial_x" value="$(var initial_x)"/>
+    <param name="initial_y" value="$(var initial_y)"/>
+    <param name="initial_yaw" value="$(var initial_yaw)"/>
+    <param name="odom_topic" value="/automobile/wheel_imu_odom"/>
+    <param name="frame_id" value="odom"/>
+    <param name="child_frame_id" value="base_link"/>
+  </node>
+</launch>

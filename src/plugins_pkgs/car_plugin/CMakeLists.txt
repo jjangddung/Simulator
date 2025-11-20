@@ -15,5 +15,10 @@ add_library(car_plugin SHARED src/carlikerobot_ros_plugin.cpp src/carlikerobot.c
 target_include_directories(car_plugin PUBLIC include)
 ament_target_dependencies(car_plugin "gazebo_dev" "gazebo_msgs" "gazebo_ros" "std_msgs" "rclcpp")
 
+install(TARGETS car_plugin
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION bin)
+
 ament_export_dependencies(rclcpp gazebo_ros std_msgs)
 ament_package()

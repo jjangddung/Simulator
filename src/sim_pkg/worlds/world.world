@@ -4,6 +4,7 @@
 
 	<world name="bfmc_official">
 	  	<gravity> 0.0 0.0 -9.8</gravity>
+		<plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so"/>
 
 
 		<light type="point" name="c1">
@@ -65,10 +66,10 @@
 		<include>
 			<scale> 1 1 1 </scale>
 			<uri>model://track</uri>
-			<pose> 7.340 -7.495 </pose>
+			<pose> 7.340 7.495 </pose>
+			<!-- <pose>10.34 6.87 0 0 0 0</pose> -->
 	  	</include>
 
 	</world>
 
 </sdf>
-

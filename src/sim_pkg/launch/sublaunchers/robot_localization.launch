@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <node
+    pkg="robot_localization"
+    exec="ekf_node"
+    name="ekf_wheel_imu"
+    output="screen">
+    <param name="use_sim_time" value="true"/>
+    <param from="$(find-pkg-share sim_pkg)/config/ekf_wheel_imu.yaml"/>
+  </node>
+</launch>

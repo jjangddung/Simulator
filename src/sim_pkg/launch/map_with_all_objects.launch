@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <launch>
-  <include file="$(find-pkg-share sim_pkg)/launch/gazebo.launch"/>
-  <include file="$(find-pkg-share sim_pkg)/launch/sublaunchers/car.launch"/>
-  <include file="$(find-pkg-share sim_pkg)/launch/sublaunchers/enter_highway_signs.launch"/>
-  <include file="$(find-pkg-share sim_pkg)/launch/sublaunchers/leave_highway_signs.launch"/>
-  <include file="$(find-pkg-share sim_pkg)/launch/sublaunchers/prohibited_signs.launch"/>
-  <include file="$(find-pkg-share sim_pkg)/launch/sublaunchers/oneway_signs.launch"/>
-  <include file="$(find-pkg-share sim_pkg)/launch/sublaunchers/parking_signs.launch"/>
-  <include file="$(find-pkg-share sim_pkg)/launch/sublaunchers/crosswalk_signs.launch"/>
-  <include file="$(find-pkg-share sim_pkg)/launch/sublaunchers/pedestrian_objects.launch"/>
-  <include file="$(find-pkg-share sim_pkg)/launch/sublaunchers/priority_signs.launch"/>
-  <include file="$(find-pkg-share sim_pkg)/launch/sublaunchers/roundabout_signs.launch"/>
-  <include file="$(find-pkg-share sim_pkg)/launch/sublaunchers/stop_signs.launch"/>
-  <include file="$(find-pkg-share sim_pkg)/launch/sublaunchers/obstacle_car.launch"/>
-  <include file="$(find-pkg-share sim_pkg)/launch/sublaunchers/members.launch"/>
-  <include file="$(find-pkg-share sim_pkg)/launch/sublaunchers/ramp.launch"/>
-  <include file="$(find-pkg-share sim_pkg)/launch/sublaunchers/roadblock.launch"/>
-  <include file="$(find-pkg-share sim_pkg)/launch/sublaunchers/traffic_lights.launch"/>
+  <include file="$(find-pkg-share sim_pkg)/launch/map_with_all_objects.launch.py"/>
 </launch>

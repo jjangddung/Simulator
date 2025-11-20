@@ -5,50 +5,177 @@
       <uri>model://chassis</uri>
       <pose>0 0 0 0 0 0</pose>
     </include>
+
     <!-- including a left rear wheel -->
     <include>
       <uri>model://wheel_left</uri>
       <pose>-0.152 0.081 0 0 0 0</pose>
       <name>wheel_rear_left</name>
     </include>
+
     <!-- including a front rear wheel -->
     <include>
       <uri>model://wheel_right</uri>
       <pose>-0.152 -0.081 0 0 0 0</pose>
       <name>wheel_rear_right</name>
     </include>
+
     <!-- including a left steering comp. -->
     <include>
       <uri>model://steering_column</uri>
       <pose>0.112 0.0725 0 0 0 0</pose>
       <name>steer_left</name>
     </include>
+
     <!-- including a right steering comp. -->
     <include>
       <uri>model://steering_column</uri>
       <pose>0.112 -0.0725 0 0 0 0</pose>
       <name>steer_right</name>
     </include>
+
     <!-- including a left front wheel -->
     <include>
       <uri>model://wheel_left</uri>
       <pose>0.118 0.081 0 0 0 0</pose>
       <name>wheel_front_left</name>
     </include>
+
     <!-- including a right front wheel -->
     <include>
       <uri>model://wheel_right</uri>
       <pose>0.118 -0.081 0 0 0 0</pose>
       <name>wheel_front_right</name>
     </include>
-    
-    <!-- including the camera link -->
-    <!-- 0.261799388 -->
-    <include>
-      <uri>model://camera</uri>
-      <pose>0 0 0.2 0 0.2617 0</pose>
-      <name>camera</name>
-    </include>
+
+    <!-- RealSense depth camera link -->
+    <link name='realsense_link'>
+      <!-- 카메라 위치/자세: x=0.0, y=0.0, z=0.18, pitch=+15deg -->
+      <pose>0 0 0.3 0 0.436332 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <inertia>
+          <ixx>0.001</ixx>
+          <iyy>0.001</iyy>
+          <izz>0.001</izz>
+        </inertia>
+        <mass>0.564</mass>
+      </inertial>
+
+      <visual name='realsense_visual'>
+        <geometry>
+          <box>
+            <size>0.025 0.09 0.025</size>
+          </box>
+        </geometry>
+      </visual>
+
+      <collision name='realsense_collision'>
+        <geometry>
+          <box>
+            <size>0.025 0.09 0.025</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <!-- Depth camera (D455: HFOV ~87°, 848x480) -->
+      <sensor name='cameradepth' type='depth'>
+        <camera name='camera'>
+          <!-- 87 deg ≈ 1.518436 rad -->
+          <horizontal_fov>1.518436</horizontal_fov>
+          <image>
+            <width>848</width>
+            <height>480</height>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>15.0</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.005</stddev> <!-- ≈5mm -->
+          </noise>
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+        <visualize>0</visualize>
+      </sensor>
+
+      <!-- Color camera (D455: HFOV ~90°, 640x480) -->
+      <sensor name='cameracolor' type='camera'>
+        <camera name='camera'>
+          <!-- 90 deg ≈ 1.570796 rad -->
+          <horizontal_fov>1.570796</horizontal_fov>
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>RGB_INT8</format>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>20.0</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+        <visualize>1</visualize>
+      </sensor>
+
+      <!-- IR Left (HFOV ~87°, 848x480) -->
+      <sensor name='cameraired1' type='camera'>
+        <camera name='camera'>
+          <!-- Depth와 동일 HFOV 사용 -->
+          <horizontal_fov>1.518436</horizontal_fov>
+          <image>
+            <width>848</width>
+            <height>480</height>
+            <format>L_INT8</format>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>15.0</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.05</stddev>
+          </noise>
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+        <visualize>0</visualize>
+      </sensor>
+
+      <!-- IR Right (HFOV ~87°, 848x480) -->
+      <sensor name='cameraired2' type='camera'>
+        <camera name='camera'>
+          <horizontal_fov>1.518436</horizontal_fov>
+          <image>
+            <width>848</width>
+            <height>480</height>
+            <format>L_INT8</format>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>15.0</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.05</stddev>
+          </noise>
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+        <visualize>0</visualize>
+      </sensor>
+    </link>
 
     <!-- includeing the car body -->
     <include>
@@ -57,7 +184,7 @@
       <name>car_body</name>
     </include>
 
-    <!-- LIST OF JOINTS -->
+    <!-- LIST OF JOINTS (원문 그대로) -->
     <joint name='joint_leftrear_rim' type='revolute'>
       <parent>chassis::link</parent>
       <child>wheel_rear_left::link_rim</child>
@@ -80,14 +207,8 @@
       </axis>
       <physics>
         <ode>
-          <limit>
-            <cfm>0</cfm>
-            <erp>0.2</erp>
-          </limit>
-          <suspension>
-            <cfm>0</cfm>
-            <erp>0.2</erp>
-          </suspension>
+          <limit><cfm>0</cfm><erp>0.2</erp></limit>
+          <suspension><cfm>0</cfm><erp>0.2</erp></suspension>
         </ode>
       </physics>
     </joint>
@@ -114,18 +235,12 @@
       </axis>
       <physics>
         <ode>
-          <limit>
-            <cfm>0</cfm>
-            <erp>0.2</erp>
-          </limit>
-          <suspension>
-            <cfm>0</cfm>
-            <erp>0.2</erp>
-          </suspension>
+          <limit><cfm>0</cfm><erp>0.2</erp></limit>
+          <suspension><cfm>0</cfm><erp>0.2</erp></suspension>
         </ode>
       </physics>
     </joint>
-    
+
     <!-- Front right joint between the chassis and the steering comp. -->
     <joint name='joint_leftfront_steer' type='revolute'>
       <parent>chassis::link</parent>
@@ -149,17 +264,12 @@
       </axis>
       <physics>
         <ode>
-          <limit>
-            <cfm>0</cfm>
-            <erp>0.2</erp>
-          </limit>
-          <suspension>
-            <cfm>0</cfm>
-            <erp>0.2</erp>
-          </suspension>
+          <limit><cfm>0</cfm><erp>0.2</erp></limit>
+          <suspension><cfm>0</cfm><erp>0.2</erp></suspension>
         </ode>
       </physics>
     </joint>
+
     <!-- Front left joint between the chassis and the steering comp. -->
     <joint name='joint_rightfront_steer' type='revolute'>
       <parent>chassis::link</parent>
@@ -183,14 +293,8 @@
       </axis>
       <physics>
         <ode>
-          <limit>
-            <cfm>0</cfm>
-            <erp>0.2</erp>
-          </limit>
-          <suspension>
-            <cfm>0</cfm>
-            <erp>0.2</erp>
-          </suspension>
+          <limit><cfm>0</cfm><erp>0.2</erp></limit>
+          <suspension><cfm>0</cfm><erp>0.2</erp></suspension>
         </ode>
       </physics>
     </joint>
@@ -218,14 +322,8 @@
       </axis>
       <physics>
         <ode>
-          <limit>
-            <cfm>0</cfm>
-            <erp>0.2</erp>
-          </limit>
-          <suspension>
-            <cfm>0</cfm>
-            <erp>0.2</erp>
-          </suspension>
+          <limit><cfm>0</cfm><erp>0.2</erp></limit>
+          <suspension><cfm>0</cfm><erp>0.2</erp></suspension>
         </ode>
       </physics>
     </joint>
@@ -253,14 +351,8 @@
       </axis>
       <physics>
         <ode>
-          <limit>
-            <cfm>0</cfm>
-            <erp>0.2</erp>
-          </limit>
-          <suspension>
-            <cfm>0</cfm>
-            <erp>0.2</erp>
-          </suspension>
+          <limit><cfm>0</cfm><erp>0.2</erp></limit>
+          <suspension><cfm>0</cfm><erp>0.2</erp></suspension>
         </ode>
       </physics>
     </joint>
@@ -272,44 +364,55 @@
       <pose frame=''>0 0 0 0 -0 0</pose>
       <physics>
         <ode>
-          <limit>
-            <cfm>0</cfm>
-            <erp>0.2</erp>
-          </limit>
-          <suspension>
-            <cfm>0</cfm>
-            <erp>0.2</erp>
-          </suspension>
+          <limit><cfm>0</cfm><erp>0.2</erp></limit>
+          <suspension><cfm>0</cfm><erp>0.2</erp></suspension>
         </ode>
       </physics>
     </joint>
 
-
-    <!-- fixed joint for the camera -->
-    <joint name='joint_camera' type='fixed'>
+    <joint name='realsense_joint' type='fixed'>
       <parent>chassis::link</parent>
-      <child>camera::link_camera</child>
-      <pose frame=''>0 0 0 0 -0 0</pose>
-      <physics>
-        <ode>
-          <limit>
-            <cfm>0</cfm>
-            <erp>0.2</erp>
-          </limit>
-          <suspension>
-            <cfm>0</cfm>
-            <erp>0.2</erp>
-          </suspension>
-        </ode>
-      </physics>
+      <child>realsense_link</child>
+      <pose>0 0 0 0 0 0</pose>
     </joint>
 
-    <!-- Plugin  -->
+    <!-- RealSense Gazebo Plugin -->
+    <plugin name='realsense_camera' filename='librealsense_gazebo_plugin.so'>
+      <prefix>camera</prefix>
+
+      <depthUpdateRate>30.0</depthUpdateRate>
+      <colorUpdateRate>30.0</colorUpdateRate>
+      <infraredUpdateRate>30.0</infraredUpdateRate>
+
+      <depthTopicName>aligned_depth_to_color/image_raw</depthTopicName>
+      <depthCameraInfoTopicName>depth/camera_info</depthCameraInfoTopicName>
+      <colorTopicName>color/image_raw</colorTopicName>
+      <colorCameraInfoTopicName>color/camera_info</colorCameraInfoTopicName>
+      <infrared1TopicName>infra1/image_raw</infrared1TopicName>
+      <infrared1CameraInfoTopicName>infra1/camera_info</infrared1CameraInfoTopicName>
+      <infrared2TopicName>infra2/image_raw</infrared2TopicName>
+      <infrared2CameraInfoTopicName>infra2/camera_info</infrared2CameraInfoTopicName>
+
+      <colorOpticalframeName>camera_color_optical_frame</colorOpticalframeName>
+      <depthOpticalframeName>camera_depth_optical_frame</depthOpticalframeName>
+      <infrared1OpticalframeName>camera_left_ir_optical_frame</infrared1OpticalframeName>
+      <infrared2OpticalframeName>camera_right_ir_optical_frame</infrared2OpticalframeName>
+
+      <!-- depth range -->
+      <rangeMinDepth>0.1</rangeMinDepth>
+      <rangeMaxDepth>4.0</rangeMaxDepth>
+
+      <!-- PointCloud on -->
+      <pointCloud>true</pointCloud>
+      <pointCloudTopicName>depth/color/points</pointCloudTopicName>
+      <pointCloudCutoff>0.1</pointCloudCutoff>
+    </plugin>
+
     <plugin name='CarLikeRobotPlugin' filename='libcar_plugin.so'>
       <wheelbase>0.26</wheelbase>
       <axletrack>0.162</axletrack>
       <wheelradius>0.0325</wheelradius>
-      <speed_wheel_joints> 
+      <speed_wheel_joints>
         <front_wheel_joints>
           <leftjoint>joint_leftfront_rim</leftjoint>
           <rightjoint>joint_rightfront_rim</rightjoint>
@@ -334,9 +437,41 @@
       <robotNamespace>/</robotNamespace>
     </plugin>
 
-    <plugin name='bno055' filename='libbno055_plugin.so'> </plugin>
+    <plugin name='bno055' filename='libbno055_plugin.so'>
+      <roll_noise_stddev>0.01</roll_noise_stddev>
+      <pitch_noise_stddev>0.01</pitch_noise_stddev>
+      <yaw_noise_stddev>0.01</yaw_noise_stddev>
+      <angular_velocity_noise_stddev>0.005</angular_velocity_noise_stddev>
+      <linear_acceleration_noise_stddev>0.1</linear_acceleration_noise_stddev>
+      <imu_topic>/automobile/imu_raw</imu_topic>
+      <imu_frame>base_link</imu_frame>
+    </plugin>
+
     <plugin name='gps' filename='libgps_plugin.so'> </plugin>
 
+    <plugin name='wheel_speed_encoder' filename='libwheel_speed_plugin.so'>
+      <ros>
+        <namespace>/automobile</namespace>
+      </ros>
+      <joint_name>joint_leftrear_rim</joint_name>
+      <wheel_radius>0.0325</wheel_radius>
+      <topic>/automobile/wheel_speed</topic>
+      <twist_topic>/automobile/wheel_twist</twist_topic>
+      <twist_frame>base_link</twist_frame>
+      <twist_noise_stddev>0.01</twist_noise_stddev>
+      <deadband>0.000</deadband>
+      <update_rate>50</update_rate>
+    </plugin>
+
+    <plugin name='steering_angle' filename='libsteering_angle_plugin.so'>
+      <ros>
+        <namespace>/automobile</namespace>
+      </ros>
+      <left_joint>joint_leftfront_steer</left_joint>
+      <right_joint>joint_rightfront_steer</right_joint>
+      <topic>/automobile/steering_angle</topic>
+      <update_rate>50</update_rate>
+    </plugin>
 
   </model>
 </sdf>

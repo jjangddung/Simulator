@@ -11,9 +11,10 @@ namespace gazebo
         void TrafficLight::Load(physics::ModelPtr model_ptr, sdf::ElementPtr sdf_ptr)
         {        	
 			// Save a pointer to the model for later use
-            this->m_ros_node = gazebo_ros::Node::Get(sdf_ptr);
 			this->m_model = model_ptr;
 			this->name = this->m_model->GetName();
+            auto node_name = std::string("traffic_light_plugin_") + this->name;
+            this->m_ros_node = gazebo_ros::Node::Get(sdf_ptr, node_name);
 			
         	// Create transport node
 			this->m_node = transport::NodePtr(new transport::Node());
