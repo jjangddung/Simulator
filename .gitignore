@@ -6,3 +6,10 @@ log/
 .catkin_workspace
 src/CMakeLists.txt
 **/*.pyc
+
+build/
+install/
+log/
+*.pgm
+*.so
+
